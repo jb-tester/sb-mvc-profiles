@@ -1,8 +1,11 @@
 package com.example.sbmvcprofiles;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -14,14 +17,18 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MyController {
 
+    
+    @Autowired
+    private MyDataBean data;
+
     @RequestMapping("/")
     public String home(ModelMap model) {
-        model.addAttribute("home_attr1", "home_attr1");
+        model.addAttribute("home_attr1", data.getData());
         final String view_name = "home";
         return view_name;
     }
 
-    @RequestMapping(value = "/test1")
+    @RequestMapping(value = "/test1", method = RequestMethod.GET)
     public ModelAndView test1() {
 
         ModelAndView mav = new ModelAndView("test1");
